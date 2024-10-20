@@ -1,4 +1,5 @@
 import polars as pl
+import dask.dataframe as dd
 import os
 
 
@@ -74,26 +75,24 @@ def split_csv_round_robin(input_csv: str, num_splits: int = 5, output_folder: st
     
     os.makedirs(output_folder, exist_ok=True)
 
-    df = pl.read_csv(input_csv, infer_schema_length=10000,
-                     schema_overrides={
-                            "time": pl.Utf8,
-                            "cloudCover": pl.Utf8
+    # Load the CSV file as a Dask DataFrame
+    df = dd.read_csv(input_csv, dtype={
+                        "time": 'object',  # Similar to Utf8 in polars
+                        "cloudCover": 'object',
+                        'windBearing': 'float64'
                     })
 
-    dfs = [pl.DataFrame() for _ in range(num_splits)]
-
-    for i in range(len(df)):
-        dfs[i % num_splits] = pl.concat([dfs[i % num_splits], df[i:i+1]])
+    df = df.assign(split_idx=(df.index % num_splits))
 
     for i in range(num_splits):
+        split_df = df[df['split_idx'] == i]
         output_file = os.path.join(output_folder, f"home_{i + 1}.csv")
-        dfs[i].write_csv(output_file)
+        split_df = split_df.drop(columns=['split_idx'])  # Remove the helper column
+        split_df.to_csv(output_file, single_file=True, index=False)
         print(f"Saved {output_file}")
 
 
 if __name__ =="__main__":
-
-    print("This is going to take a long time to execute. Please be patient")
 
     # Splitting dataset to train and test datasets
     split_train_test('data/SmartHomeDataset.csv', frac=0.95, output_dir='data/')
