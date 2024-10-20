@@ -43,6 +43,8 @@ def split_train_test(input_csv: str, frac: float = 0.95, output_dir: str = 'data
     train_df.write_csv(train_path)
     test_df.write_csv(test_path)
 
+    print(f"Successfully split the dataset")
+
 
 def split_csv_round_robin(input_csv: str, num_splits: int = 5, output_folder: str = 'data/split_data') -> None:
     """
@@ -80,4 +82,9 @@ def split_csv_round_robin(input_csv: str, num_splits: int = 5, output_folder: st
 
 if __name__ =="__main__":
 
-# split_csv_round_robin('data/HomeC.csv', num_splits=5, output_folder='data/split_data')
+    # Splitting dataset to train and test datasets
+    split_train_test('SmartHomeDataset.csv', frac=0.95, output_dir='data/')
+
+    # Round robin sampling of train_data into 5 splits
+    split_csv_round_robin('data/train_data.csv')
+
