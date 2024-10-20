@@ -7,8 +7,8 @@ def split_train_test(input_csv: str, frac: float = 0.95, output_dir: str = 'data
     """
     Splits a dataset into training and test sets and saves them as CSV files.
 
-    The function assumes that the dataset contains a column named 'time', which is used for splitting.
-    If 'time' is not present, modify the column name to the appropriate identifier.
+    The function assumes that the dataset contains particular column names.
+    This is not a general purpose function.
 
     Parameters
     ----------
@@ -32,7 +32,11 @@ def split_train_test(input_csv: str, frac: float = 0.95, output_dir: str = 'data
     os.makedirs(output_dir, exist_ok=True)
 
     # It seems pl.Utf8 helps improve performance rather thatn just using str
-    df = pl.read_csv(input_csv, dtypes={0: pl.Utf8, 27: pl.Utf8})
+    df = pl.read_csv(input_csv, infer_schema_length=10000,
+                     schema_overrides={
+                            "time": pl.Utf8,
+                            "cloudCover": pl.Utf8
+                    })
     
     train_df = df.sample(fraction=frac)
     test_df = df.filter(~df["time"].is_in(train_df["time"]))
@@ -49,6 +53,9 @@ def split_train_test(input_csv: str, frac: float = 0.95, output_dir: str = 'data
 def split_csv_round_robin(input_csv: str, num_splits: int = 5, output_folder: str = 'data/split_data') -> None:
     """
     Splits the input CSV file into `num_splits` parts using a round-robin strategy and saves them as CSV files.
+
+    The function assumes that the dataset contains particular column names.
+    This is not a general purpose function.
 
     Parameters
     ----------
@@ -67,7 +74,11 @@ def split_csv_round_robin(input_csv: str, num_splits: int = 5, output_folder: st
     
     os.makedirs(output_folder, exist_ok=True)
 
-    df = pl.read_csv(input_csv, dtypes={0: pl.Utf8, 27: pl.Utf8})
+    df = pl.read_csv(input_csv, infer_schema_length=10000,
+                     schema_overrides={
+                            "time": pl.Utf8,
+                            "cloudCover": pl.Utf8
+                    })
 
     dfs = [pl.DataFrame() for _ in range(num_splits)]
 
@@ -82,8 +93,10 @@ def split_csv_round_robin(input_csv: str, num_splits: int = 5, output_folder: st
 
 if __name__ =="__main__":
 
+    print("This is going to take a long time to execute. Please be patient")
+
     # Splitting dataset to train and test datasets
-    split_train_test('SmartHomeDataset.csv', frac=0.95, output_dir='data/')
+    split_train_test('data/SmartHomeDataset.csv', frac=0.95, output_dir='data/')
 
     # Round robin sampling of train_data into 5 splits
     split_csv_round_robin('data/train_data.csv')
