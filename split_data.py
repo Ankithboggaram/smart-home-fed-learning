@@ -4,7 +4,11 @@ import os
 
 
 
-def split_train_test(input_csv: str, frac: float = 0.95, output_dir: str = 'data/') -> None:
+def split_train_test(
+    input_csv: str,
+    frac: float = 0.95,
+    output_dir: str = 'data/'
+    ) -> None:
     """
     Splits a dataset into training and test sets and saves them as CSV files.
 
@@ -51,7 +55,11 @@ def split_train_test(input_csv: str, frac: float = 0.95, output_dir: str = 'data
     print(f"Successfully split the dataset")
 
 
-def split_csv_round_robin(input_csv: str, num_splits: int = 5, output_folder: str = 'data/split_data') -> None:
+def split_csv_round_robin(
+    input_csv: str,
+    num_splits: int = 5,
+    output_folder: str = 'data/split_data'
+    ) -> None:
     """
     Splits the input CSV file into `num_splits` parts using a round-robin strategy and saves them as CSV files.
 
