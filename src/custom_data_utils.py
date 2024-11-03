@@ -59,13 +59,33 @@ def individual_home_datasets(
 ) -> List[Dataset]:
     
     """Return a list of datasets that have been sampled by round robin sampling"""
-    
+
+    paths = ['data/split_data/home_1.csv', 'data/split_data/home_2.csv','data/split_data/home_3.csv', 'data/split_data/home_4.csv']
+    inp_seq_len
     train_datasets = []
     
     for path in paths:
-        df = dd.read_csv(path)
-        train_sequence = []
-        test_sequence =  []
-        # TODO: Check how to split dataset into partitions for forecasting (Should be similar to the pytorch thing you've done earlier)
-        for i in range(len(df)):
+
+        # Read the CSV file and compute the Dask DataFrame
+        df = dd.read_csv(path).compute() 
+
+        use_series = df['use [kW]'].values
+        
+        # Normalize or standardize your features if necessary
+        # Example: use_series = (use_series - np.mean(use_series)) / np.std(use_series)
+
+        # Prepare input-output pairs
+        data_input = []
+        data_target = []
+        for i in range(len(use_series) - inp_seq_len - out_seq_len):
+            data_input.append(use_series[i:i + inp_seq_len])
+            data_target.append(use_series[i + inp_seq_len:i + inp_seq_len + out_seq_len])
+        
+        data_input = torch.FloatTensor(data_input)
+        data_target = torch.FloatTensor(data_target)
+        
+        dataset = SmartHomeDataset(data_input, data_target, inp_seq_len, out_seq_len)
+        train_datasets.append(dataset)
+    
+    return train_datasets
 
