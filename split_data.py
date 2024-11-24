@@ -2,6 +2,38 @@ import polars as pl
 import dask.dataframe as dd
 import os
 
+def preprocess_data(
+    input_csv: str,
+    ) -> None:
+
+    numeric_columns = [
+    "use [kW]",
+    "Furnace 1 [kW]",
+    "Furnace 2 [kW]",
+    "Home office [kW]",
+    "Wine cellar [kW]",
+    "Garage door [kW]",
+    "Kitchen 12 [kW]",
+    "Kitchen 14 [kW]",
+    "Kitchen 38 [kW]",
+    "Barn [kW]",
+    "Living room [kW]",
+    "Solar [kW]",
+    "temperature",
+    "humidity",
+    "visibility",
+    "apparentTemperature",
+    "pressure",
+    "windSpeed",
+    "windBearing",
+    "precipIntensity",
+    "dewPoint",
+    "precipProbability",
+    ]
+
+    target_Col = "Target"
+
+    
 
 
 def split_train_test(
