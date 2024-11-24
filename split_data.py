@@ -4,7 +4,9 @@ import os
 
 def preprocess_data(
     input_csv: str,
-    output_dir: str -> 'data/'
+    output_dir: str = 'data/',
+    TRAIN_TEST_CUTOFF: str = '1451977136',
+    TRAIN_VALID_RATIO: float = 0.75
     ) -> None:
     """
     Preprocesses the dataset by removing unecessarycolumns and scaling numeric values
@@ -45,8 +47,26 @@ def preprocess_data(
     "dewPoint",
     "precipProbability",
     ]
-
     target_Col = "Target"
+
+    filepath = os.path.join(output_dir, input_csv)
+    df = pd.read_csv(filepath, index_col="time", dtype={"time": "str"})
+
+    df = df.loc[:, numeric_columns]
+    cols = df.columns
+
+    df[target_Col] = df["use [kW]"].pct_change() * 100
+    df[target_Col] = df["Target"].fillna(0)
+    df = df.dropna()
+
+    index = df.index[df.index < TRAIN_TEST_CUTOFF]
+    index = index[: int(len(index) * TRAIN_VALID_RATIO)]
+    scaler = StandardScaler().fit(df.loc[index, cols])
+    df[cols] = scaler.transform(df[cols])
+
+    filePathPreProcessed = os.path.join(output_dir, "SmartHomeDataset-Pre-Processed.csv")
+    df.to_csv(filePathPreProcessed)
+
 
 
 
