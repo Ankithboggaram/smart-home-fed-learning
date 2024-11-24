@@ -5,6 +5,20 @@ import os
 def preprocess_data(
     input_csv: str,
     ) -> None:
+    """
+    Preprocesses the dataset by removing unecessarycolumns and scaling numeric values
+
+    Parameters
+    ----------
+    input_csv : str
+        Path to the input CSV file to be split.
+
+    Returns
+    -------
+    None
+        The function saves one CSV file in the specified directory.
+
+    """
 
     numeric_columns = [
     "use [kW]",
@@ -33,7 +47,7 @@ def preprocess_data(
 
     target_Col = "Target"
 
-    
+
 
 
 def split_train_test(
