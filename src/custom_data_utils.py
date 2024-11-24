@@ -24,13 +24,13 @@ class SmartHomeDataset(Dataset):
         data_input: torch.FloatTensor,
         data_target: torch.FloatTensor, 
         input_sequence_length: int
-        output_sequence_length: int
+        # output_sequence_length: int
         ):
 
         self.data_input = data_input
         self.data_target = data_target
         self.input_sequence_length = input_sequence_length
-        self.output_sequence_length = output_sequence_length
+        # self.output_sequence_length = output_sequence_length
 
     def __len__(self):
         """Returns the number of sequences in the dataset."""
@@ -47,15 +47,17 @@ class SmartHomeDataset(Dataset):
         
         :return: a tuple of (input_sequence, target_value)
         """
-        input_seq = self.data_input[idx : idx + self.input_sequence_length]
-        output_seq = self.data_target[idx + self.input_sequence_length : idx + self.input_sequence_length + self.output_sequence_length]
-        return input_seq, output_seq
+        input_seq = self.data_input[idx - self.input_sequence_length : idx]
+        # output_seq = self.data_target[idx + self.input_sequence_length : idx + self.input_sequence_length + self.output_sequence_length]
+        output_target = self.data_target
+        # return input_seq, output_seq
+        return input_seq, data_target
 
 
 def individual_home_datasets(
     paths: List, # Paths to the csv files containing data. Each path should be pointing at one dataset file in .csv format, e.g., ['data1_path', 'data2_path']  etc...
     inp_seq_len: int,
-    out_seq_len: int
+    # out_seq_len: int
 ) -> List[Dataset]:
     
     """Return a list of datasets that have been sampled by round robin sampling"""
