@@ -4,6 +4,7 @@ import os
 
 def preprocess_data(
     input_csv: str,
+    output_dir: str -> 'data/'
     ) -> None:
     """
     Preprocesses the dataset by removing unecessarycolumns and scaling numeric values
