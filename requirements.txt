@@ -22,5 +22,6 @@ pandas==2.2.2
 pillow==10.4.0
 polars
 protobuf==5.28.2
+scikit-learn
 torch==2.4.1
 torchvision==0.19.1
