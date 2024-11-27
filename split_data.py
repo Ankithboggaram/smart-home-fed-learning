@@ -1,6 +1,8 @@
 import polars as pl
 import dask.dataframe as dd
 import os
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
 
 def preprocess_data(
     input_csv: str,
@@ -49,7 +51,7 @@ def preprocess_data(
     ]
     target_Col = "Target"
 
-    filepath = os.path.join(output_dir, input_csv)
+    filepath = os.path.join(input_csv)
     df = pd.read_csv(filepath, index_col="time", dtype={"time": "str"})
 
     df = df.loc[:, numeric_columns]
@@ -151,11 +153,14 @@ def split_csv_round_robin(
     os.makedirs(output_folder, exist_ok=True)
 
     # Load the CSV file as a Dask DataFrame
-    df = dd.read_csv(input_csv, dtype={
-                        "time": 'object',  # Similar to Utf8 in polars
-                        "cloudCover": 'object',
-                        'windBearing': 'float64'
-                    })
+    # df = dd.read_csv(input_csv, dtype={
+    #                     "time": 'object',  # Similar to Utf8 in polars
+    #                     "cloudCover": 'object',
+    #                     'windBearing': 'float64'
+    #                 })
+    # df = dd.read_csv(input_csv)
+    # Using pandas instead
+    df = pd.read_csv(input_csv)
 
     df = df.assign(split_idx=(df.index % num_splits))
 
@@ -163,14 +168,18 @@ def split_csv_round_robin(
         split_df = df[df['split_idx'] == i]
         output_file = os.path.join(output_folder, f"home_{i + 1}.csv")
         split_df = split_df.drop(columns=['split_idx'])  # Remove the helper column
-        split_df.to_csv(output_file, single_file=True, index=False)
+        # split_df.to_csv(output_file, single_file=True, index=False)
+        split_df.to_csv(output_file, index=False)
         print(f"Saved {output_file}")
 
 
 if __name__ =="__main__":
 
+    # Preprocess the SmartHomeDataset
+    preprocess_data('data/SmartHomeDataset.csv', output_dir='data')
+
     # Splitting dataset to train and test datasets
-    split_train_test('data/SmartHomeDataset.csv', frac=0.95, output_dir='data/')
+    split_train_test('data/SmartHomeDataset-Pre-Processed.csv', frac=0.95, output_dir='data/')
 
     # Round robin sampling of train_data into 5 splits
     split_csv_round_robin('data/train_data.csv')
