@@ -2,7 +2,6 @@ import torch
 from torch.utils.data import Dataset
 import dask.dataframe as dd
 
-
 class SmartHomeDataset(Dataset):
     """
     A PyTorch dataset class for time series forecasting.
@@ -48,7 +47,7 @@ class SmartHomeDataset(Dataset):
 
         :return: a tuple of (input_sequence, target_value)
         """
-        input_seq = self.data_input[idx - self.input_sequence_length : idx]
+        input_seq = self.data_input[idx: idx + self.input_sequence_length ]
         # output_seq = self.data_target[idx + self.input_sequence_length : idx + self.input_sequence_length + self.output_sequence_length]
         output_target = self.data_target
         # return input_seq, output_seq
@@ -56,7 +55,7 @@ class SmartHomeDataset(Dataset):
 
 
 def individual_home_datasets(
-    paths: list,  # Paths to the csv files containing data. Each path should be pointing at one dataset file in .csv format, e.g., ['data1_path', 'data2_path']  etc...
+    # paths: list,  # Paths to the csv files containing data. Each path should be pointing at one dataset file in .csv format, e.g., ['data1_path', 'data2_path']  etc...
     inp_seq_len: int,
     # out_seq_len: int
 ) -> list[Dataset]:
@@ -76,7 +75,7 @@ def individual_home_datasets(
         # Read the CSV file and compute the Dask DataFrame
         df = dd.read_csv(path).compute()
 
-        use_series = df["use [kW]"].values
+        use_series = df.values
 
         # Normalize or standardize your features if necessary
         # Example: use_series = (use_series - np.mean(use_series)) / np.std(use_series)
@@ -84,14 +83,14 @@ def individual_home_datasets(
         # Prepare input-output pairs
         data_input = []
         data_target = []
-        for i in range(len(use_series) - inp_seq_len - 1):
-            data_input.append(use_series[i : i + inp_seq_len])
-            data_target.append(use_series[i + inp_seq_len : i + inp_seq_len + 1])
+        for i in range(0, len(use_series) - inp_seq_len, inp_seq_len):
+            data_input.append(use_series[i : i + inp_seq_len, :-1])
+            data_target.append(use_series[i + inp_seq_len, -1])
 
         data_input = torch.FloatTensor(data_input)
         data_target = torch.FloatTensor(data_target)
 
-        dataset = SmartHomeDataset(data_input, data_target, inp_seq_len, 1)
+        dataset = SmartHomeDataset(data_input, data_target, inp_seq_len)
         train_datasets.append(dataset)
 
     return train_datasets
