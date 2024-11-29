@@ -1,36 +1,44 @@
-import math
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
+
 
 class CNN(nn.Module):
-    def __init__(self, num_channel, num_classes, num_pixel):
-        super().__init__()
-        self.conv1 = nn.Conv2d(
-            num_channel, 32, kernel_size=5, padding=0, stride=1, bias=True
-        )
-        self.conv2 = nn.Conv2d(32, 64, kernel_size=5, padding=0, stride=1, bias=True)
-        self.maxpool = nn.MaxPool2d(kernel_size=(2, 2))
-        self.act = nn.ReLU(inplace=True)
+    def __init__(
+        self, sequence_length=18, n_features=23, n_filters=(4, 8, 16), droprate=0.1
+    ):
+        super(CNN, self).__init__()
 
-        ###
-        ### X_out = floor{ 1 + (X_in + 2*padding - dilation*(kernel_size-1) - 1)/stride }
-        ###
-        X = num_pixel
-        X = math.floor(1 + (X + 2 * 0 - 1 * (5 - 1) - 1) / 1)
-        X = X / 2
-        X = math.floor(1 + (X + 2 * 0 - 1 * (5 - 1) - 1) / 1)
-        X = X / 2
-        X = int(X)
+        self.conv1 = nn.Conv2d(1, n_filters[0], kernel_size=(1, n_features))
+        self.conv2 = nn.Conv2d(n_filters[0], n_filters[1], kernel_size=(3, 1))
+        self.conv3 = nn.Conv2d(n_filters[1], n_filters[2], kernel_size=(3, 1))
+        self.maxpool = nn.MaxPool2d(kernel_size=(3, 1))
+        self.dropout = nn.Dropout(droprate)
+        self.flatten = nn.Flatten()
 
-        self.fc1 = nn.Linear(64 * X * X, 512)
-        self.fc2 = nn.Linear(512, num_classes)
+        dummy_input = torch.zeros(1, 1, sequence_length, n_features)
+        output_size = self.getShapeOfLinearLayer(dummy_input)
+
+        self.fc = nn.Linear(output_size, 1)
+
+    def getShapeOfLinearLayer(self, x):
+        x = F.leaky_relu(self.conv1(x))
+        x = F.leaky_relu(self.conv2(x))
+        x = self.maxpool(x)
+        x = F.leaky_relu(self.conv3(x))
+        x = self.maxpool(x)
+        x = self.flatten(x)
+
+        return x.size(1)
 
     def forward(self, x):
-        x = self.act(self.conv1(x))
+        x = F.leaky_relu(self.conv1(x))
+        x = F.leaky_relu(self.conv2(x))
         x = self.maxpool(x)
-        x = self.act(self.conv2(x))
+        x = F.leaky_relu(self.conv3(x))
         x = self.maxpool(x)
-        x = torch.flatten(x, 1)
-        x = self.act(self.fc1(x))
-        x = self.fc2(x)
+        x = self.flatten(x)
+        x = self.dropout(x)
+        x = self.fc(x)
+
         return x
