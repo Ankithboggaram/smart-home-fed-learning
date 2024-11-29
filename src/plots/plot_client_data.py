@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 
-# Train Loss for each client
 data = {
     1: [15361.7363, 8096.0428, 4626.0184, 3300.7576, 2637.4792, 1713.2466, 
         1359.4513, 1316.6869, 509.8453, 614.8479, 187.5010, 114.0374, 
@@ -30,9 +29,8 @@ def plot_and_save(client_id, train_loss):
 
     filename = f"client_{client_id}_loss.png"
     plt.savefig(filename)
-    plt.close()  # Close the plot to free memory
+    plt.close()
 
-# Generate and save plots for all clients
 for client_id, train_loss in data.items():
     plot_and_save(client_id, train_loss)
 

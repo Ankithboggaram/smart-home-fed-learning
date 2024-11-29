@@ -12,10 +12,9 @@ plt.plot(range(20), averaged_rmse, marker='o', linestyle='-', color='r', label='
 plt.title('RMSE of shared model over 20 Epochs')
 plt.xlabel('Epoch')
 plt.ylabel('RMSE')
-plt.xticks(range(20))  # Ensure all epochs are labeled on the x-axis
+plt.xticks(range(20))
 plt.grid(True, linestyle='--', alpha=0.7)
 plt.legend()
 
-# Show the plot
 plt.tight_layout()
 plt.savefig("RMSE")
