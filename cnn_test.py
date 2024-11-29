@@ -1,4 +1,4 @@
-from src.custom_data_utils import individual_home_datasets, get_test_data
+from src.custom_data_utils import getDataset
 from src.cnn import CNN
 
 import torch
@@ -14,10 +14,10 @@ def train_evaluate(parameters):
     n_epochs = parameters["num_epochs"]
     learning_rate = parameters["lr"]
 
-    train_datasets = individual_home_datasets(sequence_length)
-    train_set = train_datasets[4][0]
+    train_dataset = getDataset("train", sequence_length)
+    train_set = train_dataset[0]
 
-    test_df = get_test_data(sequence_length)
+    test_df = getDataset("test", sequence_length)
     test_set = test_df[0]
 
     train_steps_per_epoch = len(train_set[1])
