@@ -49,9 +49,9 @@ class SmartHomeDataset(Dataset):
 
         :return: a tuple of (input_sequence, target_value)
         """
-        input_seq = self.data_input
+        input_seq = self.data_input[idx]
         # output_seq = self.data_target[idx + self.input_sequence_length : idx + self.input_sequence_length + self.output_sequence_length]
-        output_target = self.data_target
+        output_target = self.data_target[idx]
         # return input_seq, output_seq
         return input_seq, output_target
 
@@ -64,10 +64,10 @@ def individual_home_datasets(
     """Return a list of datasets that have been sampled by round robin sampling"""
 
     paths = [
-        "./data/split_data/home_1.csv",
-        "./data/split_data/home_2.csv",
-        "./data/split_data/home_3.csv",
-        "./data/split_data/home_4.csv",
+        "../data/split_data/home_1.csv",
+        "../data/split_data/home_2.csv",
+        "../data/split_data/home_3.csv",
+        "../data/split_data/home_4.csv",
     ]
 
     train_datasets = []
@@ -122,3 +122,40 @@ def getDataset(
     dataset = SmartHomeDataset(data_input, data_target, inp_seq_len)
 
     return dataset
+
+
+def distribute_datasets(
+    num_clients: int,
+    client_id: int,
+    inp_seq_len: int = 18,
+    **kwargs
+):
+    """
+    Return the smart home dataset for a given client.
+    :param num_clients: total number of clients
+    :param client_id: the client id
+    """
+    train_datasets = individual_home_datasets(inp_seq_len=18)
+
+    # Common Test dataset for all clients
+    # Read the CSV file and compute the Dask DataFrame
+    df = dd.read_csv("/home/ankith/github/smart-home-fed-learning/data/test_data.csv").compute()
+
+    use_series = df.values
+
+    # Normalize or standardize your features if necessary
+    # Example: use_series = (use_series - np.mean(use_series)) / np.std(use_series)
+
+    # Prepare input-output pairs
+    data_input = []
+    data_target = []
+    for i in range(0, len(use_series) - inp_seq_len, inp_seq_len):
+        data_input.append(use_series[i : i + inp_seq_len, :-1])
+        data_target.append(use_series[i + inp_seq_len, -1])
+
+    data_input = torch.FloatTensor(np.array(data_input))
+    data_target = torch.FloatTensor(np.array(data_target))
+
+    test_dataset = SmartHomeDataset(data_input, data_target, inp_seq_len)
+    
+    return train_datasets[client_id], test_dataset
