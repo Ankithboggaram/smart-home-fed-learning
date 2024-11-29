@@ -4,14 +4,21 @@ import torch.nn.functional as F
 
 
 class CNN(nn.Module):
+
     def __init__(
-        self, sequence_length=18, n_features=23, n_filters=(4, 8, 16), droprate=0.1
+        self,
+        sequence_length=18,
+        n_features=23,
+        filters_layer1=4,
+        filters_layer2=8,
+        filters_layer3=16,
+        droprate=0.1,
     ):
         super(CNN, self).__init__()
 
-        self.conv1 = nn.Conv2d(1, n_filters[0], kernel_size=(1, n_features))
-        self.conv2 = nn.Conv2d(n_filters[0], n_filters[1], kernel_size=(3, 1))
-        self.conv3 = nn.Conv2d(n_filters[1], n_filters[2], kernel_size=(3, 1))
+        self.conv1 = nn.Conv2d(1, filters_layer1, kernel_size=(1, n_features))
+        self.conv2 = nn.Conv2d(filters_layer1, filters_layer2, kernel_size=(3, 1))
+        self.conv3 = nn.Conv2d(filters_layer2, filters_layer3, kernel_size=(3, 1))
         self.maxpool = nn.MaxPool2d(kernel_size=(3, 1))
         self.dropout = nn.Dropout(droprate)
         self.flatten = nn.Flatten()
