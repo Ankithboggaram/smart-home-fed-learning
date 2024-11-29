@@ -1,6 +1,8 @@
 import torch
 from torch.utils.data import Dataset
 import dask.dataframe as dd
+import numpy as np
+
 
 class SmartHomeDataset(Dataset):
     """
@@ -47,7 +49,7 @@ class SmartHomeDataset(Dataset):
 
         :return: a tuple of (input_sequence, target_value)
         """
-        input_seq = self.data_input[idx: idx + self.input_sequence_length ]
+        input_seq = self.data_input
         # output_seq = self.data_target[idx + self.input_sequence_length : idx + self.input_sequence_length + self.output_sequence_length]
         output_target = self.data_target
         # return input_seq, output_seq
@@ -62,12 +64,13 @@ def individual_home_datasets(
     """Return a list of datasets that have been sampled by round robin sampling"""
 
     paths = [
-        "data/split_data/home_1.csv",
-        "data/split_data/home_2.csv",
-        "data/split_data/home_3.csv",
-        "data/split_data/home_4.csv",
+        "./data/split_data/home_1.csv",
+        "./data/split_data/home_2.csv",
+        "./data/split_data/home_3.csv",
+        "./data/split_data/home_4.csv",
+        "./data/split_data/home_5.csv",
     ]
-    inp_seq_len
+
     train_datasets = []
 
     for path in paths:
@@ -87,10 +90,31 @@ def individual_home_datasets(
             data_input.append(use_series[i : i + inp_seq_len, :-1])
             data_target.append(use_series[i + inp_seq_len, -1])
 
-        data_input = torch.FloatTensor(data_input)
-        data_target = torch.FloatTensor(data_target)
+        data_input = torch.FloatTensor(np.array(data_input))
+        data_target = torch.FloatTensor(np.array(data_target))
 
         dataset = SmartHomeDataset(data_input, data_target, inp_seq_len)
         train_datasets.append(dataset)
 
     return train_datasets
+
+
+def get_test_data(
+    inp_seq_len: int,
+) -> Dataset:
+    df = dd.read_csv("./data/test_data.csv").compute()
+    use_series = df.values
+
+    data_input = []
+    data_target = []
+
+    for i in range(0, len(use_series) - inp_seq_len, inp_seq_len):
+        data_input.append(use_series[i : i + inp_seq_len, :-1])
+        data_target.append(use_series[i + inp_seq_len, -1])
+
+    data_input = torch.FloatTensor(np.array(data_input))
+    data_target = torch.FloatTensor(np.array(data_target))
+
+    dataset = SmartHomeDataset(data_input, data_target, inp_seq_len)
+
+    return dataset

@@ -25,3 +25,6 @@ protobuf==5.28.2
 scikit-learn
 torch==2.4.1
 torchvision==0.19.1
+dask
+botorch
+ax-platform
