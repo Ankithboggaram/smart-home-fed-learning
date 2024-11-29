@@ -22,6 +22,7 @@ client_configs:
     val_batch_size: 1
     train_data_shuffle: False
     val_data_shuffle: False
+    num_workers: 2
     
   model_configs:
     model_path: "./cnn.py"
