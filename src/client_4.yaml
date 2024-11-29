@@ -8,12 +8,11 @@ train_configs:
 
 # Local dataloader
 data_configs:
-  dataset_path: "./mnist_dataset.py"
-  # dataset_name: "get_mnist"
+  dataset_path: "custom_data_utils.py"
+  dataset_name: "distribute_datasets"
   dataset_kwargs:
-    num_clients: 5
+    num_clients: 4
     client_id: 3
-    partition_strategy: "class_noniid"
     visualization: False
     output_dirname: "./output"
     output_filename: "visualization.pdf"
