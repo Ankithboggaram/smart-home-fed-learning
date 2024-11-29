@@ -68,7 +68,6 @@ def individual_home_datasets(
         "./data/split_data/home_2.csv",
         "./data/split_data/home_3.csv",
         "./data/split_data/home_4.csv",
-        "./data/split_data/home_5.csv",
     ]
 
     train_datasets = []
@@ -99,10 +98,15 @@ def individual_home_datasets(
     return train_datasets
 
 
-def get_test_data(
+def getDataset(
+    type: str,
     inp_seq_len: int,
 ) -> Dataset:
-    df = dd.read_csv("./data/test_data.csv").compute()
+    file_path = "./data/test_data.csv"
+    if type == "train":
+        file_path = "./data/split_data/home_5.csv"
+
+    df = dd.read_csv(file_path).compute()
     use_series = df.values
 
     data_input = []
