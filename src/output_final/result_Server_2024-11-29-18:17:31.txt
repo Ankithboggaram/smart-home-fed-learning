@@ -1,0 +1,97 @@
+[2024-11-29 18:17:31,049 INFO server]: Logging to ./output_test/result_Server_2024-11-29-18:17:31.txt
+[2024-11-29 18:17:40,188 INFO server]: Received GetConfiguration request from client b6c66101-78f2-42e1-851f-64781673045f
+[2024-11-29 18:17:40,223 INFO server]: Received GetConfiguration request from client d0003d4f-67e8-4a3a-bd5f-5faf477f4ccb
+[2024-11-29 18:17:40,268 INFO server]: Received GetGlobalModel request from client b6c66101-78f2-42e1-851f-64781673045f
+[2024-11-29 18:17:40,286 INFO server]: Received GetConfiguration request from client 971b8dfe-ad22-42bb-98a7-fdef61121347
+[2024-11-29 18:17:40,297 INFO server]: Received GetGlobalModel request from client d0003d4f-67e8-4a3a-bd5f-5faf477f4ccb
+[2024-11-29 18:17:40,338 INFO server]: Received GetGlobalModel request from client 971b8dfe-ad22-42bb-98a7-fdef61121347
+[2024-11-29 18:17:40,376 INFO server]: Received GetConfiguration request from client bde2661d-8e70-43a3-95b9-df8f2bb9e806
+[2024-11-29 18:17:40,411 INFO server]: Received GetGlobalModel request from client bde2661d-8e70-43a3-95b9-df8f2bb9e806
+[2024-11-29 18:17:40,442 INFO server]: Received InvokeCustomAction set_sample_size request from client d0003d4f-67e8-4a3a-bd5f-5faf477f4ccb
+[2024-11-29 18:17:40,443 INFO server]: Received InvokeCustomAction set_sample_size request from client bde2661d-8e70-43a3-95b9-df8f2bb9e806
+[2024-11-29 18:17:40,444 INFO server]: Received InvokeCustomAction set_sample_size request from client 971b8dfe-ad22-42bb-98a7-fdef61121347
+[2024-11-29 18:17:40,447 INFO server]: Received InvokeCustomAction set_sample_size request from client b6c66101-78f2-42e1-851f-64781673045f
+[2024-11-29 18:18:31,222 INFO server]: Received UpdateGlobalModel request from client b6c66101-78f2-42e1-851f-64781673045f
+[2024-11-29 18:18:31,282 INFO server]: Received UpdateGlobalModel request from client d0003d4f-67e8-4a3a-bd5f-5faf477f4ccb
+[2024-11-29 18:18:31,471 INFO server]: Received UpdateGlobalModel request from client 971b8dfe-ad22-42bb-98a7-fdef61121347
+[2024-11-29 18:18:31,618 INFO server]: Received UpdateGlobalModel request from client bde2661d-8e70-43a3-95b9-df8f2bb9e806
+[2024-11-29 18:19:17,986 INFO server]: Received UpdateGlobalModel request from client 971b8dfe-ad22-42bb-98a7-fdef61121347
+[2024-11-29 18:19:18,017 INFO server]: Received UpdateGlobalModel request from client bde2661d-8e70-43a3-95b9-df8f2bb9e806
+[2024-11-29 18:19:18,266 INFO server]: Received UpdateGlobalModel request from client b6c66101-78f2-42e1-851f-64781673045f
+[2024-11-29 18:19:18,300 INFO server]: Received UpdateGlobalModel request from client d0003d4f-67e8-4a3a-bd5f-5faf477f4ccb
+[2024-11-29 18:19:58,052 INFO server]: Received UpdateGlobalModel request from client b6c66101-78f2-42e1-851f-64781673045f
+[2024-11-29 18:19:58,382 INFO server]: Received UpdateGlobalModel request from client d0003d4f-67e8-4a3a-bd5f-5faf477f4ccb
+[2024-11-29 18:19:58,461 INFO server]: Received UpdateGlobalModel request from client 971b8dfe-ad22-42bb-98a7-fdef61121347
+[2024-11-29 18:19:58,536 INFO server]: Received UpdateGlobalModel request from client bde2661d-8e70-43a3-95b9-df8f2bb9e806
+[2024-11-29 18:20:40,120 INFO server]: Received UpdateGlobalModel request from client 971b8dfe-ad22-42bb-98a7-fdef61121347
+[2024-11-29 18:20:40,623 INFO server]: Received UpdateGlobalModel request from client bde2661d-8e70-43a3-95b9-df8f2bb9e806
+[2024-11-29 18:20:40,666 INFO server]: Received UpdateGlobalModel request from client d0003d4f-67e8-4a3a-bd5f-5faf477f4ccb
+[2024-11-29 18:20:40,956 INFO server]: Received UpdateGlobalModel request from client b6c66101-78f2-42e1-851f-64781673045f
+[2024-11-29 18:21:36,620 INFO server]: Received UpdateGlobalModel request from client b6c66101-78f2-42e1-851f-64781673045f
+[2024-11-29 18:21:37,778 INFO server]: Received UpdateGlobalModel request from client 971b8dfe-ad22-42bb-98a7-fdef61121347
+[2024-11-29 18:21:37,989 INFO server]: Received UpdateGlobalModel request from client d0003d4f-67e8-4a3a-bd5f-5faf477f4ccb
+[2024-11-29 18:21:38,277 INFO server]: Received UpdateGlobalModel request from client bde2661d-8e70-43a3-95b9-df8f2bb9e806
+[2024-11-29 18:22:32,944 INFO server]: Received UpdateGlobalModel request from client b6c66101-78f2-42e1-851f-64781673045f
+[2024-11-29 18:22:32,996 INFO server]: Received UpdateGlobalModel request from client d0003d4f-67e8-4a3a-bd5f-5faf477f4ccb
+[2024-11-29 18:22:33,275 INFO server]: Received UpdateGlobalModel request from client bde2661d-8e70-43a3-95b9-df8f2bb9e806
+[2024-11-29 18:22:33,311 INFO server]: Received UpdateGlobalModel request from client 971b8dfe-ad22-42bb-98a7-fdef61121347
+[2024-11-29 18:23:35,111 INFO server]: Received UpdateGlobalModel request from client b6c66101-78f2-42e1-851f-64781673045f
+[2024-11-29 18:23:36,563 INFO server]: Received UpdateGlobalModel request from client bde2661d-8e70-43a3-95b9-df8f2bb9e806
+[2024-11-29 18:23:36,725 INFO server]: Received UpdateGlobalModel request from client 971b8dfe-ad22-42bb-98a7-fdef61121347
+[2024-11-29 18:23:36,826 INFO server]: Received UpdateGlobalModel request from client d0003d4f-67e8-4a3a-bd5f-5faf477f4ccb
+[2024-11-29 18:24:19,530 INFO server]: Received UpdateGlobalModel request from client bde2661d-8e70-43a3-95b9-df8f2bb9e806
+[2024-11-29 18:24:19,732 INFO server]: Received UpdateGlobalModel request from client b6c66101-78f2-42e1-851f-64781673045f
+[2024-11-29 18:24:19,906 INFO server]: Received UpdateGlobalModel request from client 971b8dfe-ad22-42bb-98a7-fdef61121347
+[2024-11-29 18:24:20,053 INFO server]: Received UpdateGlobalModel request from client d0003d4f-67e8-4a3a-bd5f-5faf477f4ccb
+[2024-11-29 18:24:57,899 INFO server]: Received UpdateGlobalModel request from client bde2661d-8e70-43a3-95b9-df8f2bb9e806
+[2024-11-29 18:24:57,958 INFO server]: Received UpdateGlobalModel request from client b6c66101-78f2-42e1-851f-64781673045f
+[2024-11-29 18:24:57,962 INFO server]: Received UpdateGlobalModel request from client 971b8dfe-ad22-42bb-98a7-fdef61121347
+[2024-11-29 18:24:58,256 INFO server]: Received UpdateGlobalModel request from client d0003d4f-67e8-4a3a-bd5f-5faf477f4ccb
+[2024-11-29 18:25:36,555 INFO server]: Received UpdateGlobalModel request from client bde2661d-8e70-43a3-95b9-df8f2bb9e806
+[2024-11-29 18:25:36,634 INFO server]: Received UpdateGlobalModel request from client 971b8dfe-ad22-42bb-98a7-fdef61121347
+[2024-11-29 18:25:36,772 INFO server]: Received UpdateGlobalModel request from client d0003d4f-67e8-4a3a-bd5f-5faf477f4ccb
+[2024-11-29 18:25:36,916 INFO server]: Received UpdateGlobalModel request from client b6c66101-78f2-42e1-851f-64781673045f
+[2024-11-29 18:26:12,093 INFO server]: Received UpdateGlobalModel request from client 971b8dfe-ad22-42bb-98a7-fdef61121347
+[2024-11-29 18:26:12,100 INFO server]: Received UpdateGlobalModel request from client bde2661d-8e70-43a3-95b9-df8f2bb9e806
+[2024-11-29 18:26:12,365 INFO server]: Received UpdateGlobalModel request from client d0003d4f-67e8-4a3a-bd5f-5faf477f4ccb
+[2024-11-29 18:26:12,405 INFO server]: Received UpdateGlobalModel request from client b6c66101-78f2-42e1-851f-64781673045f
+[2024-11-29 18:26:49,218 INFO server]: Received UpdateGlobalModel request from client bde2661d-8e70-43a3-95b9-df8f2bb9e806
+[2024-11-29 18:26:49,283 INFO server]: Received UpdateGlobalModel request from client d0003d4f-67e8-4a3a-bd5f-5faf477f4ccb
+[2024-11-29 18:26:49,483 INFO server]: Received UpdateGlobalModel request from client b6c66101-78f2-42e1-851f-64781673045f
+[2024-11-29 18:26:49,542 INFO server]: Received UpdateGlobalModel request from client 971b8dfe-ad22-42bb-98a7-fdef61121347
+[2024-11-29 18:27:26,803 INFO server]: Received UpdateGlobalModel request from client 971b8dfe-ad22-42bb-98a7-fdef61121347
+[2024-11-29 18:27:27,224 INFO server]: Received UpdateGlobalModel request from client d0003d4f-67e8-4a3a-bd5f-5faf477f4ccb
+[2024-11-29 18:27:27,385 INFO server]: Received UpdateGlobalModel request from client bde2661d-8e70-43a3-95b9-df8f2bb9e806
+[2024-11-29 18:27:27,408 INFO server]: Received UpdateGlobalModel request from client b6c66101-78f2-42e1-851f-64781673045f
+[2024-11-29 18:28:08,156 INFO server]: Received UpdateGlobalModel request from client bde2661d-8e70-43a3-95b9-df8f2bb9e806
+[2024-11-29 18:28:08,417 INFO server]: Received UpdateGlobalModel request from client b6c66101-78f2-42e1-851f-64781673045f
+[2024-11-29 18:28:08,453 INFO server]: Received UpdateGlobalModel request from client 971b8dfe-ad22-42bb-98a7-fdef61121347
+[2024-11-29 18:28:08,475 INFO server]: Received UpdateGlobalModel request from client d0003d4f-67e8-4a3a-bd5f-5faf477f4ccb
+[2024-11-29 18:28:43,160 INFO server]: Received UpdateGlobalModel request from client bde2661d-8e70-43a3-95b9-df8f2bb9e806
+[2024-11-29 18:28:43,522 INFO server]: Received UpdateGlobalModel request from client b6c66101-78f2-42e1-851f-64781673045f
+[2024-11-29 18:28:43,596 INFO server]: Received UpdateGlobalModel request from client d0003d4f-67e8-4a3a-bd5f-5faf477f4ccb
+[2024-11-29 18:28:43,693 INFO server]: Received UpdateGlobalModel request from client 971b8dfe-ad22-42bb-98a7-fdef61121347
+[2024-11-29 18:29:22,935 INFO server]: Received UpdateGlobalModel request from client bde2661d-8e70-43a3-95b9-df8f2bb9e806
+[2024-11-29 18:29:23,158 INFO server]: Received UpdateGlobalModel request from client 971b8dfe-ad22-42bb-98a7-fdef61121347
+[2024-11-29 18:29:23,553 INFO server]: Received UpdateGlobalModel request from client b6c66101-78f2-42e1-851f-64781673045f
+[2024-11-29 18:29:23,589 INFO server]: Received UpdateGlobalModel request from client d0003d4f-67e8-4a3a-bd5f-5faf477f4ccb
+[2024-11-29 18:30:01,278 INFO server]: Received UpdateGlobalModel request from client b6c66101-78f2-42e1-851f-64781673045f
+[2024-11-29 18:30:01,447 INFO server]: Received UpdateGlobalModel request from client 971b8dfe-ad22-42bb-98a7-fdef61121347
+[2024-11-29 18:30:01,686 INFO server]: Received UpdateGlobalModel request from client d0003d4f-67e8-4a3a-bd5f-5faf477f4ccb
+[2024-11-29 18:30:01,735 INFO server]: Received UpdateGlobalModel request from client bde2661d-8e70-43a3-95b9-df8f2bb9e806
+[2024-11-29 18:30:40,923 INFO server]: Received UpdateGlobalModel request from client 971b8dfe-ad22-42bb-98a7-fdef61121347
+[2024-11-29 18:30:41,567 INFO server]: Received UpdateGlobalModel request from client d0003d4f-67e8-4a3a-bd5f-5faf477f4ccb
+[2024-11-29 18:30:41,596 INFO server]: Received UpdateGlobalModel request from client bde2661d-8e70-43a3-95b9-df8f2bb9e806
+[2024-11-29 18:30:41,648 INFO server]: Received UpdateGlobalModel request from client b6c66101-78f2-42e1-851f-64781673045f
+[2024-11-29 18:31:24,957 INFO server]: Received UpdateGlobalModel request from client d0003d4f-67e8-4a3a-bd5f-5faf477f4ccb
+[2024-11-29 18:31:25,419 INFO server]: Received UpdateGlobalModel request from client 971b8dfe-ad22-42bb-98a7-fdef61121347
+[2024-11-29 18:31:25,554 INFO server]: Received UpdateGlobalModel request from client bde2661d-8e70-43a3-95b9-df8f2bb9e806
+[2024-11-29 18:31:25,564 INFO server]: Received UpdateGlobalModel request from client b6c66101-78f2-42e1-851f-64781673045f
+[2024-11-29 18:32:08,194 INFO server]: Received UpdateGlobalModel request from client bde2661d-8e70-43a3-95b9-df8f2bb9e806
+[2024-11-29 18:32:09,029 INFO server]: Received UpdateGlobalModel request from client b6c66101-78f2-42e1-851f-64781673045f
+[2024-11-29 18:32:09,313 INFO server]: Received UpdateGlobalModel request from client d0003d4f-67e8-4a3a-bd5f-5faf477f4ccb
+[2024-11-29 18:32:09,346 INFO server]: Received UpdateGlobalModel request from client 971b8dfe-ad22-42bb-98a7-fdef61121347
+[2024-11-29 18:32:09,365 INFO server]: Received InvokeCustomAction close_connection request from client b6c66101-78f2-42e1-851f-64781673045f
+[2024-11-29 18:32:09,366 INFO server]: Received InvokeCustomAction close_connection request from client d0003d4f-67e8-4a3a-bd5f-5faf477f4ccb
+[2024-11-29 18:32:09,368 INFO server]: Received InvokeCustomAction close_connection request from client 971b8dfe-ad22-42bb-98a7-fdef61121347
+[2024-11-29 18:32:09,368 INFO server]: Received InvokeCustomAction close_connection request from client bde2661d-8e70-43a3-95b9-df8f2bb9e806

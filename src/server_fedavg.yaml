@@ -11,7 +11,7 @@ client_configs:
     loss_fn_path: "./l1loss.py"
     loss_fn_name: "L1Loss"
     # Client validation
-    do_validation: False
+    do_validation: True
     do_pre_validation: False
     metric_path: "./rmse.py"
     metric_name: "rmse"
