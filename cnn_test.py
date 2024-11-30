@@ -15,34 +15,30 @@ def train_evaluate(parameters):
     learning_rate = parameters["lr"]
 
     train_dataset = getDataset("train", sequence_length)
-    train_set = train_dataset[0]
+    test_dataset = getDataset("test", sequence_length)
 
-    test_df = getDataset("test", sequence_length)
-    test_set = test_df[0]
-
-    train_steps_per_epoch = len(train_set[1])
-    test_steps_per_epoch = len(test_set[1])
+    train_steps_per_epoch = len(train_dataset)
+    test_steps_per_epoch = len(test_dataset)
 
     model = CNN(sequence_length=sequence_length)
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
-    criterion_mse = nn.L1Loss()
+    criterion_mae = nn.L1Loss()
+    criterion_mse = nn.MSELoss()
     writer = SummaryWriter()
 
     epoch_loss = list()
     for epoch in range(n_epochs):
         model.train()
         running_loss = 0.0
-        indices = np.arange(train_steps_per_epoch)
-        np.random.shuffle(indices)
-        for idx in indices:
+        for idx in range(train_steps_per_epoch):
             optimizer.zero_grad()
 
-            input_sequence = train_set[0][idx].unsqueeze(0).unsqueeze(0)
-            target = train_set[1][idx]
+            input_sequence = train_dataset[idx][0].unsqueeze(0).unsqueeze(0)
+            target = train_dataset[idx][1]
 
             outputs = model(input_sequence)
 
-            loss = criterion_mse(outputs.squeeze(), target)
+            loss = criterion_mae(outputs.squeeze(), target)
             running_loss += loss.item()
 
             loss.backward()
@@ -65,11 +61,9 @@ def train_evaluate(parameters):
     with torch.no_grad():
         total_loss = 0.0
         num_samples = 0
-        indices = np.arange(test_steps_per_epoch)
-        np.random.shuffle(indices)
-        for idx in indices:
-            input_sequence = test_set[0][idx].unsqueeze(0).unsqueeze(0)
-            target = test_set[1][idx]
+        for idx in range(test_steps_per_epoch):
+            input_sequence = test_dataset[idx][0].unsqueeze(0).unsqueeze(0)
+            target = test_dataset[idx][1]
 
             output = model(input_sequence)
             output = output.squeeze(0).squeeze(0)
@@ -84,4 +78,4 @@ def train_evaluate(parameters):
     return avg_loss
 
 
-train_evaluate({"lr": 0.001, "num_epochs": 10, "sequence_length": 18})
+train_evaluate({"lr": 0.001, "num_epochs": 20, "sequence_length": 18})
