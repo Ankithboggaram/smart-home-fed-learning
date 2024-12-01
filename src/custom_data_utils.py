@@ -102,6 +102,8 @@ def getDataset(
     type: str,
     inp_seq_len: int,
 ) -> Dataset:
+    torch.manual_seed(42)
+
     file_path = "./data/test_data.csv"
     if type == "train":
         file_path = "./data/split_data/home_5.csv"
@@ -125,10 +127,7 @@ def getDataset(
 
 
 def distribute_datasets(
-    num_clients: int,
-    client_id: int,
-    inp_seq_len: int = 18,
-    **kwargs
+    num_clients: int, client_id: int, inp_seq_len: int = 18, **kwargs
 ):
     """
     Return the smart home dataset for a given client.
@@ -139,7 +138,9 @@ def distribute_datasets(
 
     # Common Test dataset for all clients
     # Read the CSV file and compute the Dask DataFrame
-    df = dd.read_csv("/home/ankith/github/smart-home-fed-learning/data/test_data.csv").compute()
+    df = dd.read_csv(
+        "/home/ankith/github/smart-home-fed-learning/data/test_data.csv"
+    ).compute()
 
     use_series = df.values
 
@@ -157,5 +158,5 @@ def distribute_datasets(
     data_target = torch.FloatTensor(np.array(data_target))
 
     test_dataset = SmartHomeDataset(data_input, data_target, inp_seq_len)
-    
+
     return train_datasets[client_id], test_dataset

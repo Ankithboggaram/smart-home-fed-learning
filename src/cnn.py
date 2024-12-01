@@ -7,11 +7,11 @@ class CNN(nn.Module):
 
     def __init__(
         self,
-        sequence_length=18,
+        sequence_length=161,
         n_features=23,
-        filters_layer1=4,
-        filters_layer2=8,
-        filters_layer3=16,
+        filters_layer1=32,
+        filters_layer2=1,
+        filters_layer3=1,
         droprate=0.1,
     ):
         super(CNN, self).__init__()
@@ -39,21 +39,13 @@ class CNN(nn.Module):
         return x.size(1)
 
     def forward(self, x):
-        # print("Input to CNN has shape: ", x.shape)
         x = F.leaky_relu(self.conv1(x))
-        # print("Shape after first conv + RELU", x.shape)
         x = F.leaky_relu(self.conv2(x))
-        # print("Shape after second conv + RELU", x.shape)
         x = self.maxpool(x)
-        # print("Shape after first maxpool", x.shape)
         x = F.leaky_relu(self.conv3(x))
-        # print("Shape after third conv + RELU", x.shape)
         x = self.maxpool(x)
-        # print("Shape after second maxpool", x.shape)
         x = self.flatten(x)
-        # print("Shape after flatten", x.shape)
         x = x.squeeze(1)
-        # print("Shape after squeeze", x.shape)
         x = self.dropout(x)
         x = self.fc(x)
 
