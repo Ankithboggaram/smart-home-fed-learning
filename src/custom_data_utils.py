@@ -26,13 +26,11 @@ class SmartHomeDataset(Dataset):
         data_input: torch.FloatTensor,
         data_target: torch.FloatTensor,
         input_sequence_length: int,
-        # output_sequence_length: int
     ):
 
         self.data_input = data_input
         self.data_target = data_target
         self.input_sequence_length = input_sequence_length
-        # self.output_sequence_length = output_sequence_length
 
     def __len__(self):
         """Returns the number of sequences in the dataset."""
@@ -50,9 +48,7 @@ class SmartHomeDataset(Dataset):
         :return: a tuple of (input_sequence, target_value)
         """
         input_seq = self.data_input[idx]
-        # output_seq = self.data_target[idx + self.input_sequence_length : idx + self.input_sequence_length + self.output_sequence_length]
         output_target = self.data_target[idx]
-        # return input_seq, output_seq
         return input_seq, output_target
 
 
@@ -76,7 +72,6 @@ def individual_home_datasets(
 
         # Read the CSV file and compute the Dask DataFrame
         df = dd.read_csv(path).compute()
-
         use_series = df.values
 
         # Normalize or standardize your features if necessary

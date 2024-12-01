@@ -4,9 +4,8 @@ from src.cnn import CNN
 import torch
 import torch.optim as optim
 import torch.nn as nn
-from torch.utils.tensorboard import SummaryWriter
+
 import matplotlib.pyplot as plt
-import numpy as np
 
 
 def train_evaluate(parameters):
@@ -45,7 +44,6 @@ def train_evaluate(parameters):
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
     criterion_mae = nn.L1Loss()
     criterion_mse = nn.MSELoss()
-    writer = SummaryWriter()
 
     epoch_loss = list()
     val_loss_history = list()
@@ -68,11 +66,6 @@ def train_evaluate(parameters):
             loss.backward()
             optimizer.step()
 
-            if idx % 10 == 0:
-                writer.add_scalar(
-                    "Loss/train", loss.item(), epoch * train_steps_per_epoch + idx
-                )
-
         avg_train_loss = running_loss / train_steps_per_epoch
         epoch_loss.append(avg_train_loss)
 
@@ -93,15 +86,9 @@ def train_evaluate(parameters):
         avg_val_loss = total_val_loss / val_steps_per_epoch
         val_loss_history.append(avg_val_loss)
 
-        # Log validation loss to TensorBoard
-        writer.add_scalar("Loss/validation", avg_val_loss, epoch)
-
         print(
             f"Epoch [{epoch+1}/{n_epochs}], Train Loss: {avg_train_loss:.4f}, Validation Loss: {avg_val_loss:.4f}"
         )
-
-    # torch.save(model.state_dict(), f"model_runs/model_epoch_{epoch+1}.pth")
-    writer.close()
 
     # Testing phase
     model.eval()
@@ -125,7 +112,6 @@ def train_evaluate(parameters):
     return avg_test_loss
 
 
-# Example usage
 avg_test_loss, epoch_loss, val_loss_history = train_evaluate(
     {
         "lr": 1e-4,
@@ -138,7 +124,6 @@ avg_test_loss, epoch_loss, val_loss_history = train_evaluate(
     }
 )
 
-# Plot training and validation loss curves
 plt.plot(epoch_loss, label="Train Loss")
 plt.plot(val_loss_history, label="Validation Loss")
 plt.legend()
