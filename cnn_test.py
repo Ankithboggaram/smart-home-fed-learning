@@ -109,7 +109,7 @@ def train_evaluate(parameters):
     avg_test_loss = total_test_loss / num_samples
     print(f"Average Loss on Test Set: {avg_test_loss:.4f}")
 
-    return avg_test_loss
+    return avg_test_loss, epoch_loss, val_loss_history
 
 
 avg_test_loss, epoch_loss, val_loss_history = train_evaluate(
